@@ -64,6 +64,50 @@ search(value) {
    
    return matchFound;
 }
+bfs() {
+    let node = this.root;
+    let queue = [];
+    let data = [];
+    queue.push(node);
+    while(queue.length) {
+        node = queue.shift();
+        data.push(node.value);
+        if(node.left) queue.push(node.left);
+        if(node.right) queue.push(node.right);
+    }
+    return data;
+}
+dfsPreorder() {
+    let data = [];
+    let current = this.root;
+    (function traverse(node) {
+        data.push(node.value)
+        if (node.left) traverse(node.left);
+        if (node.right) traverse(node.right);
+
+    })(current)
+    return data;
+}
+dfsPostorder() {
+    let data = [];
+    let current = this.root;
+    (function traverse(node){
+        if(node.left) traverse(node.left);
+        if(node.right) traverse(node.right);
+        data.push(node.value);
+    })(current)
+    return data;
+}
+dfsInOrder() {
+    let data = [];
+    let current = this.root;
+    (function traverse(node){
+        if(node.left) traverse(node.left);
+        data.push(node.value);
+        if (node.right) traverse(node.right);
+    })(current)
+    return data;
+}
 }
 
 bst = new BST();
@@ -73,4 +117,4 @@ bst.insert(15);
 bst.insert(5);
 bst.insert(11);
 bst.insert(3);
-console.log(bst.search(25))
+console.log(bst.dfsInOrder())
